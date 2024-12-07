@@ -35,7 +35,7 @@ fs.readdirSync(__dirname)
       sequelize,
       Sequelize.DataTypes
     )
-    db[model.name] = model
+    db[model.name.toLowerCase()] = model
   })
 
 Object.keys(db).forEach((modelName) => {
