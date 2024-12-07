@@ -17,8 +17,5 @@ Thumbs.db
 # Archivos de build o distribución
 dist/
 
-# Directorio Sequelize CLI (si lo usas)
-migrations/
-
 # Caché de depuración
 *.swp
