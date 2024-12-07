@@ -22,7 +22,7 @@ router.post('/create_login_user', async (req, res) => {
       password: item.password, // Asegúrate de que Sequelize maneje el hash
     })
 
-    return res.status(200).json({
+    return res.status(201).json({
       message: 'Usuario creado exitosamente.',
       user: newUser,
     })
