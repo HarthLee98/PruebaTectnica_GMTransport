@@ -1,6 +1,8 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
+const userRoutes = require('./controllers/user') // Importa el controlador directamente como rutas
+
 const app = express()
 
 // Configurar lista de orígenes permitidos
@@ -21,6 +23,9 @@ app.use(
 
 // Middleware para JSON
 app.use(express.json())
+
+// Registrar rutas directamente
+app.use('/user', userRoutes)
 
 // Puerto desde las variables de entorno
 const PORT = process.env.PORT || 3001

@@ -37,10 +37,13 @@ module.exports = (sequelize, DataTypes) => {
           len: [8, 100], // Mínimo 8 caracteres
         },
       },
+      token: {
+        type: DataTypes.STRING,
+      },
     },
     {
       sequelize,
-      modelName: 'user',
+      tableName: 'user',
       timestamps: true, // Incluye createdAt y updatedAt
       paranoid: true, // Habilita soft delete con deletedAt
       hooks: {
