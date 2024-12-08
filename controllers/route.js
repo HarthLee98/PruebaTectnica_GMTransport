@@ -73,6 +73,23 @@ router.post('/update_route', authenticateToken, async (req, res) => {
   }
 })
 
+router.delete('/delete_route/:id', authenticateToken, async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const route = await Route.findOne({ where: { id } })
+    if (!route) {
+      return res.status(404).json({ message: 'Ruta no encontrada.' })
+    }
+
+    await route.destroy()
+    return res.status(200).json({ message: 'Ruta eliminada exitosamente.' })
+  } catch (error) {
+    console.error('Error al eliminar la ruta:', error.message)
+    return res.status(500).json({ message: 'Error interno del servidor.' })
+  }
+})
+
 // Endpoint para obtener todas las rutas
 router.get('/get_routes', authenticateToken, async (req, res) => {
   try {
