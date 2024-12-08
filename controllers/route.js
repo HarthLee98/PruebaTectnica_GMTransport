@@ -31,6 +31,48 @@ router.post('/create_route', authenticateToken, async (req, res) => {
   }
 })
 
+router.post('/update_route', authenticateToken, async (req, res) => {
+  try {
+    let item = req.body
+
+    // Verifica si se proporcionó el ID de la ruta
+    if (!item.id) {
+      return res
+        .status(400)
+        .json({ message: 'El ID de la ruta es obligatorio.' })
+    }
+
+    // Busca la ruta que se desea actualizar
+    const route = await Route.findOne({ where: { id: item.id } })
+
+    if (!route) {
+      return res.status(404).json({ message: 'La ruta no existe.' })
+    }
+
+    // Verifica si el código ya está en uso por otra ruta
+    if (item.code !== route.code) {
+      const existingRoute = await Route.findOne({ where: { code: item.code } })
+      if (existingRoute) {
+        return res.status(409).json({
+          message: 'El código de ruta ya está registrado por otra ruta.',
+        })
+      }
+    }
+
+    // Actualiza la ruta en la base de datos
+    await route.update({ code: item.code, name: item.name })
+
+    // Respuesta exitosa
+    return res.status(200).json({
+      message: 'Ruta actualizada exitosamente.',
+      route,
+    })
+  } catch (error) {
+    console.error('Error al actualizar la ruta:', error.message)
+    return res.status(500).json({ message: 'Error interno del servidor.' })
+  }
+})
+
 // Endpoint para obtener todas las rutas
 router.get('/get_routes', authenticateToken, async (req, res) => {
   try {
