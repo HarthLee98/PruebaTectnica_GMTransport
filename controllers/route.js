@@ -31,4 +31,15 @@ router.post('/create_route', authenticateToken, async (req, res) => {
   }
 })
 
+// Endpoint para obtener todas las rutas
+router.get('/get_routes', authenticateToken, async (req, res) => {
+  try {
+    const routes = await Route.findAll() // Obtener todas las rutas de la tabla
+    return res.status(200).json(routes)
+  } catch (error) {
+    console.error('Error al obtener rutas:', error.message)
+    return res.status(500).json({ message: 'Error interno del servidor.' })
+  }
+})
+
 module.exports = router
