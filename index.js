@@ -5,6 +5,7 @@ const authenticateToken = require('./middleware/authenticateToken')
 const userRoutes = require('./controllers/user') // Importa el controlador directamente como rutas
 const routeRoutes = require('./controllers/route') // Importa el controlador
 const boothRoutes = require('./controllers/booth')
+const unitRoutes = require('./controllers/unit')
 
 const app = express()
 
@@ -31,6 +32,7 @@ app.use(express.json())
 app.use('/user', userRoutes)
 app.use('/route', routeRoutes)
 app.use('/booth', boothRoutes)
+app.use('/unit', unitRoutes)
 
 app.use('/api', authenticateToken)
 
